@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>BattleChips</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item *ngIf="errorFetching">
+    <h3 style="color: rgb(208, 41, 41)">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      Error fetching BattleChips
+    </h3>
+  </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let bc of battlechips">
+      <!-- <img src="{{bc.image}}"></img> -->
+      
+      <ion-label class="ion-text-wrap">
+        <img src='{{bc.image}}' alt="Missing image" width="112" height="96" 
+          onerror="this.onerror=null;this.src='assets/placeholders/chip-not-found.png';"/>
+        <h1>{{bc.name}}</h1>
+        <h2>{{bc.description}}</h2>
+        <h2 *ngIf="bc.description === ''">No description given</h2>
+        <p>Element: {{bc.element}}</p>
+        <p>MB: {{bc.mb}}</p>
+        <p>ATK: 
+          <span *ngIf="bc.atk > 0">{{bc.atk}}</span>
+          <span *ngIf="bc.atk == 0">---</span>
+        </p>
+        <p>Codes: {{bc.codes}}</p>
+        <p>Description: {{bc.description}}</p>
+        <p>
+          <span *ngIf="bc.alias.length > 0">Alias(es): {{bc.alias}}</span>
+          <span *ngIf="bc.alias === ''">No alias(es)</span>
+        </p>
+        <ion-list style="display: inline-block">
+          <app-battle-chip-editor [formMode]="edit" [battleChipParam]="bc"></app-battle-chip-editor>
+          <ion-button (click)="removeChip(bc.id)">Delete</ion-button>
+        </ion-list>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

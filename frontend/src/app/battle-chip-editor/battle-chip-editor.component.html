@@ -1,0 +1,70 @@
+<form [formGroup]="battleChipForm" *ngIf="this.battleChipForm" (ngSubmit)="onSubmit()">
+  
+  <ion-item>
+    <ion-text color="danger" *ngIf="errorControls.name.errors?.required">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      A name is required
+    </ion-text>
+    <ion-label position="floating">Name</ion-label>
+    <ion-input type="text" formControlName="name" required maxLength="9"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating">Element</ion-label>
+    <ion-select value="{{elements[10]}}" formControlName="element">
+      <ion-select-option *ngFor="let e of elements">{{e}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item>
+    <ion-text color="danger" *ngIf="errorControls.mb.errors?.required || errorControls.mb.errors?.min || errorControls.mb.errors?.max">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      MB size value must range from 0 to 99
+    </ion-text>
+    <ion-label position="floating">MB</ion-label>
+    <ion-input type="number" formControlName="mb" required min="1" max="99" value="1"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-text color="danger" *ngIf="errorControls.atk.errors?.required || errorControls.atk.errors?.min || errorControls.atk.errors?.max">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      ATK value must range from 0 to 999
+    </ion-text>
+    <ion-label position="floating">ATK</ion-label>
+    <ion-input type="number" formControlName="atk" required min="0" max="999" value="0"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-text color="warning">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      Note that codes will later be parsed to uppercase and sorted alphabetically
+    </ion-text>
+    <ion-text color="danger" *ngIf="errorControls.codes.errors?.required || errorControls.codes.errors?.validCodes">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      Code input must be one to three different letters and an asterisk
+    </ion-text>
+    <ion-label position="floating">Codes</ion-label>
+    <ion-input type="text" formControlName="codes" required minLength="1" maxLength="4"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label position="floating">Description</ion-label>
+    <ion-input type="text" formControlName="description"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Alias(es)</ion-label>
+    <ion-input type="text" formControlName="alias"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-text color="warning">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      Note that invalid URLs will be replaced with a default image
+    </ion-text>
+    <ion-label position="floating">Image URL</ion-label>
+    <ion-input type="text" formControlName="image"></ion-input>
+  </ion-item>
+
+  <ion-button type="submit" color="primary" expand="block" [disabled]="!battleChipForm.valid">Login</ion-button>
+  <!-- <ion-button (click)="saaslol()">Errors</ion-button> -->
+</form>
